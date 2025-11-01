@@ -77,3 +77,9 @@ class Pet(Resource):
         db.session.commit
         pets = PetModel.query.all()
         return pets
+    
+api.add_resource(Pets, '/api/pets')
+api.add_resource(Pet, '/api/pets/<int:id>')
+
+if __name__ == '__main__':
+    app.run(debug = True)

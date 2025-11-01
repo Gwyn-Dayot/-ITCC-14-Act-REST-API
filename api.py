@@ -52,16 +52,16 @@ class Pet(Resource):
     @marshal_with(petFields)
     def get(self, id):
         pet = PetModel.query.filter_by(id=id).first()
-        if not user:
-            abort(404, "User not found")
+        if not pet:
+            abort(404, "Pet not found")
         return pet
     
     @marshal_with(petFields)
     def patch(self, id):
         args = pet_args.parse_args()
         pet = PetModel.query.filter_by(id=id).first()
-        if not user:
-            abort(404, "User not found")
+        if not pet:
+            abort(404, "Pet not found")
         pet.name = args['name']
         pet.species = args['species']
         pet.age = args['age']
@@ -71,9 +71,9 @@ class Pet(Resource):
     @marshal_with(petFields)
     def delete(self, id):
         pet = PetModel.query.filter_by(id=id).first()
-        if not user:
-            abort(404, "User not found")
-        db.session.delete(user)
+        if not pet:
+            abort(404, "Pet not found")
+        db.session.delete(pet)
         db.session.commit
         pets = PetModel.query.all()
         return pets

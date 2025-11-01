@@ -16,6 +16,10 @@ class PetModel(db.Model):
     def __repr__(self):
         return f"Pet(name = {self.name}, species = {self.species}, age = {self.age})"
     
+with app.app_context():
+    db.create_all()
+
+    
 pet_args = reqparse.RequestParser()
 pet_args.add_argument('name', type=str, required=True, help='Pet name cannot be blank')
 pet_args.add_argument('species', type=str, required=True, help='Species must be identified')
@@ -58,7 +62,7 @@ class Pet(Resource):
     
     @marshal_with(petFields)
     def patch(self, id):
-        args = pet_args.parse_args()
+        args = update_args.parse_args()
         pet = PetModel.query.filter_by(id=id).first()
         if not pet:
             abort(404, "Pet not found")
@@ -74,7 +78,7 @@ class Pet(Resource):
         if not pet:
             abort(404, "Pet not found")
         db.session.delete(pet)
-        db.session.commit
+        db.session.commit()
         pets = PetModel.query.all()
         return pets
     

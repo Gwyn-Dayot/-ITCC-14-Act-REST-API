@@ -25,11 +25,6 @@ pet_args.add_argument('name', type=str, required=True, help='Pet name cannot be 
 pet_args.add_argument('species', type=str, required=True, help='Species must be identified')
 pet_args.add_argument('age', type=int, required=True, help='Age cannot be blank')
 
-update_args = reqparse.RequestParser()
-update_args.add_argument("name", type=str)
-update_args.add_argument("species", type=str)
-update_args.add_argument("age", type=int)
-
 petFields = {
     'id':fields.Integer,
     'name':fields.String,
@@ -62,7 +57,7 @@ class Pet(Resource):
     
     @marshal_with(petFields)
     def patch(self, id):
-        args = update_args.parse_args()
+        args = pet_args.parse_args()
         pet = PetModel.query.filter_by(id=id).first()
         if not pet:
             abort(404, "Pet not found")

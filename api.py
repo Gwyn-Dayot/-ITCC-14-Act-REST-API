@@ -26,5 +26,10 @@ update_args.add_argument("name", type=str)
 update_args.add_argument("species", type=str)
 update_args.add_argument("age", type=int)
 
-
+petFields = {
+    'id':fields.Integer,
+    'name':fields.String,
+    'species':fields.String,
+    'age':fields.Integer,
+}
 

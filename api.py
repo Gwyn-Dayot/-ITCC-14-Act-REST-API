@@ -16,10 +16,7 @@ class PetModel(db.Model):
     def __repr__(self):
         return f"Pet(name = {self.name}, species = {self.species}, age = {self.age})"
     
-with app.app_context():
-    db.create_all()
 
-    
 pet_args = reqparse.RequestParser()
 pet_args.add_argument('name', type=str, required=True, help='Pet name cannot be blank')
 pet_args.add_argument('species', type=str, required=True, help='Species must be identified')
